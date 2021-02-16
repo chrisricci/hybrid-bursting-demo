@@ -21,7 +21,7 @@ steps:
   args:
   - '-c'
   - 'gcloud compute url-maps import td-hybrid-url-map --quiet'
-  - |
+  - |-
 defaultService: global/backendServices/td-on-prem-backend-service
 name: td-hybrid-url-map
 description: ''
