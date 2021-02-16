@@ -54,6 +54,3 @@ pathMatchers:
               headerValue: "helloworld-python-yo4m4t7yga-uc.a.run.app"
               replace: True
 STDIN
-
-options:
-  machineType: 'N1_HIGHCPU_8'
