@@ -40,17 +40,17 @@ steps:
         routeAction:
           weightedBackendServices:
           - backendService: global/backendServices/td-on-prem-backend-service
-            weight: 50
+            weight: ${_ON_PREM_WEIGHT}
             headerAction:
               requestHeadersToAdd:
                 - headerName: "Host"
-                  headerValue: "helloworld-python.default.knative.riccic.com"
+                  headerValue: "${_ON_PREM_HOST}"
                   replace: True
           - backendService: global/backendServices/td-on-gcp-backend-service
-            weight: 50
+            weight: ${_ON_GCP_WEIGHT}
             headerAction:
               requestHeadersToAdd:
                 - headerName: "Host"
-                  headerValue: "helloworld-python-yo4m4t7yga-uc.a.run.app"
+                  headerValue: "${_ON_GCP_HOST}"
                   replace: True  
     STDIN
