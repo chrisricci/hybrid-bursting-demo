@@ -29,7 +29,7 @@ steps:
     - hosts:
       - '*'
       pathMatcher: matcher1
-        
+
     pathMatchers:
     - name: matcher1
       defaultService: global/backendServices/td-on-prem-backend-service
@@ -52,5 +52,5 @@ steps:
               requestHeadersToAdd:
                 - headerName: "Host"
                   headerValue: "helloworld-python-yo4m4t7yga-uc.a.run.app"
-                  replace:   
+                  replace: True  
     STDIN
