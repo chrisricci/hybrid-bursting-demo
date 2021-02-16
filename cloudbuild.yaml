@@ -20,8 +20,8 @@ steps:
   timeout: 500s
   args:
   - '-c'
-  - 'gcloud compute url-maps import td-hybrid-url-map --quiet'
   - |-
+  gcloud compute url-maps import td-hybrid-url-map --quiet <<STDIN
   defaultService: global/backendServices/td-on-prem-backend-service
   name: td-hybrid-url-map
   description: ''
@@ -52,3 +52,4 @@ steps:
               - headerName: "Host"
                 headerValue: "helloworld-python-yo4m4t7yga-uc.a.run.app"
                 replace:   
+  STDIN
