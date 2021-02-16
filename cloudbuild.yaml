@@ -1,0 +1,59 @@
+# Copyright 2019 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+steps:
+# Change to the prod-cluster context this is needed because the build previously used the staging-cluster context.
+- name: 'gcr.io/cloud-builders/gcloud'
+  id: Scale up in GCP
+  entrypoint: /bin/sh
+  timeout: 500s
+  args:
+  - '-c'
+  - |
+   gcloud compute url-maps import td-hybrid-url-map --quiet <<STDIN
+defaultService: global/backendServices/td-on-prem-backend-service
+name: td-hybrid-url-map
+description: ''
+hostRules:
+- hosts:
+  - '*'
+  pathMatcher: matcher1
+
+pathMatchers:
+- name: matcher1
+  defaultService: global/backendServices/td-on-prem-backend-service
+  routeRules:
+  - priority: 0
+    matchRules:
+    - prefixMatch: ''
+    routeAction:
+      weightedBackendServices:
+      - backendService: global/backendServices/td-on-prem-backend-service
+        weight: 50
+        headerAction:
+          requestHeadersToAdd:
+            - headerName: "Host"
+              headerValue: "helloworld-python.default.knative.riccic.com"
+              replace: True
+      - backendService: global/backendServices/td-on-gcp-backend-service
+        weight: 50
+        headerAction:
+          requestHeadersToAdd:
+            - headerName: "Host"
+              headerValue: "helloworld-python-yo4m4t7yga-uc.a.run.app"
+              replace: True
+STDIN
+
+options:
+  machineType: 'N1_HIGHCPU_8'
