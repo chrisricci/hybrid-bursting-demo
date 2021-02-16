@@ -22,33 +22,33 @@ steps:
   - '-c'
   - 'gcloud compute url-maps import td-hybrid-url-map --quiet'
   - |-
-defaultService: global/backendServices/td-on-prem-backend-service
-name: td-hybrid-url-map
-description: ''
-hostRules:
-- hosts:
-  - '*'
-  pathMatcher: matcher1
-pathMatchers:
-- name: matcher1
   defaultService: global/backendServices/td-on-prem-backend-service
-  routeRules:
-  - priority: 0
-    matchRules:
-    - prefixMatch: ''
-    routeAction:
-      weightedBackendServices:
-      - backendService: global/backendServices/td-on-prem-backend-service
-        weight: 50
-        headerAction:
-          requestHeadersToAdd:
-            - headerName: "Host"
-              headerValue: "helloworld-python.default.knative.riccic.com"
-              replace: True
-      - backendService: global/backendServices/td-on-gcp-backend-service
-        weight: 50
-        headerAction:
-          requestHeadersToAdd:
-            - headerName: "Host"
-              headerValue: "helloworld-python-yo4m4t7yga-uc.a.run.app"
-              replace: True
+  name: td-hybrid-url-map
+  description: ''
+  hostRules:
+  - hosts:
+    - '*'
+    pathMatcher:   
+  pathMatchers:
+  - name: matcher1
+    defaultService: global/backendServices/td-on-prem-backend-service
+    routeRules:
+    - priority: 0
+      matchRules:
+      - prefixMatch: ''
+      routeAction:
+        weightedBackendServices:
+        - backendService: global/backendServices/td-on-prem-backend-service
+          weight: 50
+          headerAction:
+            requestHeadersToAdd:
+              - headerName: "Host"
+                headerValue: "helloworld-python.default.knative.riccic.com"
+                replace: True
+        - backendService: global/backendServices/td-on-gcp-backend-service
+          weight: 50
+          headerAction:
+            requestHeadersToAdd:
+              - headerName: "Host"
+                headerValue: "helloworld-python-yo4m4t7yga-uc.a.run.app"
+                replace:   
