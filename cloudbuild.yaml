@@ -29,7 +29,6 @@ hostRules:
 - hosts:
   - '*'
   pathMatcher: matcher1
-
 pathMatchers:
 - name: matcher1
   defaultService: global/backendServices/td-on-prem-backend-service
